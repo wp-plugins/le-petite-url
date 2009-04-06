@@ -3,7 +3,7 @@
 Plugin Name: le petite url
 Plugin URI: http://philnelson.name/projects/le-petite-url
 Description: A personal URL shortener.
-Version: 1.0
+Version: 1.01
 Author: Phil Nelson
 Author URI: http://philnelson.name
 
@@ -28,7 +28,7 @@ global $petite_table;
 
 $petite_table = "le_petite_urls";
 
-add_option("le_petite_url_version", "1.0");
+add_option("le_petite_url_version", "1.01");
 add_option("le_petite_url_use_mobile_style", "yes");
 add_option("le_petite_url_link_text", "petite url");
 add_option("le_petite_url_permalink_prefix", "");
