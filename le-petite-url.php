@@ -220,6 +220,21 @@ function the_petite_url()
 	}
 }
 
+function get_le_petite_url($post_id)
+{
+	global $wp_query;
+	global $wpdb;
+	global $petite_table;
+	
+	$url_table = $wpdb->prefix . $petite_table;
+
+	$petite_url = $wpdb->get_var("SELECT petite_url FROM ".$url_table." WHERE post_id = ".$post_id."");
+	if($petite_url != "")
+	{
+		return $petite_url;
+	}
+}
+
 function the_petite_url_link()
 {
 	global $wp_query;

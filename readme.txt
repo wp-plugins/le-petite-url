@@ -1,10 +1,13 @@
 === Plugin Name ===
 Contributors: philnelson
-Donate link: http://philnelson.name/projects/le-petite-url/
+Version: 1.01
+Plugin URI: http://philnelson.name/projects/le-petite-url/
 Tags: permalink, urls, mobile
 Requires at least: 2.5
 Tested up to: 2.7.1
 Stable tag: trunk
+Author: Phil Nelson
+Author URI: http://philnelson.name
 
 le petite url is a personal URL shortener, allowing the user to provide simple, easy-to-remember and easy-to-say URLs for their blog posts and pages.
 
