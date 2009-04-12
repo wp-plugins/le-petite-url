@@ -3,7 +3,7 @@
 Plugin Name: le petite url
 Plugin URI: http://extrafuture.com/projects/le-petite-url
 Description: A personal URL shortener.
-Version: 1.02a
+Version: 1.03
 Author: Phil Nelson
 Author URI: http://philnelson.name
 
@@ -28,7 +28,7 @@ global $petite_table;
 
 $petite_table = "le_petite_urls";
 
-add_option("le_petite_url_version", "1.02");
+add_option("le_petite_url_version", "1.03");
 add_option("le_petite_url_use_mobile_style", "yes");
 add_option("le_petite_url_link_text", "petite url");
 add_option("le_petite_url_permalink_prefix", "");
@@ -268,6 +268,9 @@ function the_petite_url_link()
 function le_petite_url_admin_panel()
 {
 	add_options_page('le petite url Options', 'le petite url', 8, 'le-petite-url/le-petite-url-options.php', 'le_petite_url_settings');
+	if ( current_user_can('edit_posts') && function_exists('add_submenu_page') ) {
+		add_filter( 'plugin_action_links', 'le_petite_url_plugin_actions', 10, 2 );
+	}
 }
 
 function le_petite_url_settings()
@@ -308,6 +311,22 @@ function le_petite_url_short_url_header()
 	
 	}
 }
+
+// Thanks to http://wpengineer.com/how-to-improve-wordpress-plugins/ for instructions on adding the Settings link
+
+function le_petite_url_plugin_actions($links, $file)
+{
+	static $this_plugin;
+ 
+	if( !$this_plugin ) $this_plugin = plugin_basename(__FILE__);
+ 
+	if( $file == $this_plugin )
+	{
+		$settings_link = '<a href="index.php?page=le-petite-url/le-petite-url-options.php">' . __('Settings') . '</a>';
+		$links = array_merge( array($settings_link), $links); // before other links
+	}
+	return $links;
+}
  
 
 
@@ -316,7 +335,10 @@ register_activation_hook(__FILE__, "le_petite_url_install");
 add_action('template_redirect','le_petite_url_do_redirect');
 add_action('save_post','le_petite_url_make_url');
 add_action('admin_menu', 'le_petite_url_sidebar');
-add_action('admin_menu', 'le_petite_url_admin_panel');
 add_action('wp_head', 'le_petite_url_short_url_header');
+if(is_admin()) 
+{
+	add_action('admin_menu', 'le_petite_url_admin_panel');
+}
 
 ?>
