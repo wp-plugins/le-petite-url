@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: le petite url
-Plugin URI: http://extrafuture.com/projects/le-petite-url
+Plugin Name: la petite url
+Plugin URI: http://extrafuture.com/projects/la-petite-url
 Description: A personal URL shortener.
-Version: 1.03
+Version: 1.03a
 Author: Phil Nelson
-Author URI: http://philnelson.name
+Author URI: http://extrafuture.com
 
 Copyright 2009  Phil Nelson  (email : software@extrafuture.com)
 
@@ -267,7 +267,7 @@ function the_petite_url_link()
 
 function le_petite_url_admin_panel()
 {
-	add_options_page('le petite url Options', 'le petite url', 8, 'le-petite-url/le-petite-url-options.php', 'le_petite_url_settings');
+	add_options_page('la petite url Options', 'la petite url', 8, 'le-petite-url/la-petite-url-options.php', 'la_petite_url_settings');
 	if ( current_user_can('edit_posts') && function_exists('add_submenu_page') ) {
 		add_filter( 'plugin_action_links', 'le_petite_url_plugin_actions', 10, 2 );
 	}
@@ -275,7 +275,7 @@ function le_petite_url_admin_panel()
 
 function le_petite_url_settings()
 {
-	require_once('le-petite-url-options.php');
+	require_once('la-petite-url-options.php');
 }
 
 function le_petite_url_short_url_header()
@@ -322,7 +322,7 @@ function le_petite_url_plugin_actions($links, $file)
  
 	if( $file == $this_plugin )
 	{
-		$settings_link = '<a href="index.php?page=le-petite-url/le-petite-url-options.php">' . __('Settings') . '</a>';
+		$settings_link = '<a href="index.php?page=le-petite-url/la-petite-url-options.php">' . __('Settings') . '</a>';
 		$links = array_merge( array($settings_link), $links); // before other links
 	}
 	return $links;
