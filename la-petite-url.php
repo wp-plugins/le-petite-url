@@ -3,7 +3,7 @@
 Plugin Name: la petite url
 Plugin URI: http://extrafuture.com/projects/la-petite-url
 Description: A personal URL shortener.
-Version: 1.03a
+Version: 1.04
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
@@ -28,7 +28,7 @@ global $petite_table;
 
 $petite_table = "le_petite_urls";
 
-add_option("le_petite_url_version", "1.03");
+add_option("le_petite_url_version", "1.04");
 add_option("le_petite_url_use_mobile_style", "yes");
 add_option("le_petite_url_link_text", "petite url");
 add_option("le_petite_url_permalink_prefix", "");
@@ -135,6 +135,7 @@ function le_petite_url_do_redirect()
 
 		header("Expires: ".$expires);
 		header('Location: '.get_permalink($post_id), true, 302);
+		exit;
 	}
 	else
 	{
