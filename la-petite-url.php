@@ -3,7 +3,7 @@
 Plugin Name: la petite url
 Plugin URI: http://extrafuture.com/projects/la-petite-url
 Description: A personal URL shortener.
-Version: 1.04
+Version: 1.05
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
@@ -28,7 +28,7 @@ global $petite_table;
 
 $petite_table = "le_petite_urls";
 
-add_option("le_petite_url_version", "1.04");
+add_option("le_petite_url_version", "1.05");
 add_option("le_petite_url_use_mobile_style", "yes");
 add_option("le_petite_url_link_text", "petite url");
 add_option("le_petite_url_permalink_prefix", "");
@@ -38,6 +38,9 @@ add_option("le_petite_url_use_uppercase", "no");
 add_option("le_petite_url_use_numbers", "no");
 add_option("le_petite_url_length", "5");
 add_option("le_petite_use_short_url", "yes");
+add_option("le_petite_url_registered", "no");
+add_option("le_petite_url_registered_on", "0");
+add_option("extra_future_site_id",md5(get_bloginfo('url')));
 
 function le_petite_url_check_url($the_petite)
 {
@@ -268,7 +271,7 @@ function the_petite_url_link()
 
 function le_petite_url_admin_panel()
 {
-	add_options_page('la petite url Options', 'la petite url', 8, 'le-petite-url/la-petite-url-options.php', 'la_petite_url_settings');
+	add_options_page('la petite url Options', 'la petite url', 8, 'le-petite-url/la-petite-url-options.php', 'le_petite_url_settings');
 	if ( current_user_can('edit_posts') && function_exists('add_submenu_page') ) {
 		add_filter( 'plugin_action_links', 'le_petite_url_plugin_actions', 10, 2 );
 	}
@@ -307,7 +310,7 @@ function le_petite_url_short_url_header()
 			}
 			$le_petite_url_permalink = $le_petite_url_permalink . $petite_url;
 			
-			echo '<link rel="alternate short_url" href="'.$le_petite_url_permalink.'" />';
+			echo '<link rel="shorturl" href="'.$le_petite_url_permalink.'" />';
 		}
 	
 	}
@@ -328,8 +331,12 @@ function le_petite_url_plugin_actions($links, $file)
 	}
 	return $links;
 }
- 
 
+function le_petite_url_register()
+{
+	update_option('le_petite_url_registered', "yes");
+	update_option('le_petite_url_registered_on', time());
+}
 
 register_activation_hook(__FILE__, "le_petite_url_install");
 
