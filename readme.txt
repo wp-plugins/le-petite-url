@@ -4,7 +4,7 @@ Version: 1.05
 Plugin URI: http://extrafuture.com/projects/le-petite-url/
 Tags: permalink, urls, mobile, url shortener, url shortening, shorturl, twitter
 Requires at least: 2.5
-Tested up to: 2.7.1
+Tested up to: 2.8.3
 Stable tag: trunk
 Author: Phil Nelson
 Author URI: http://extrafuture.com
