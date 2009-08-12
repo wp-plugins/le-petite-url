@@ -338,6 +338,21 @@ function le_petite_url_register()
 	update_option('le_petite_url_registered_on', time());
 }
 
+// function adapted from http://www.webcheatsheet.com/PHP/get_current_page_url.php
+
+function le_petite_url_current_page() 
+{
+	$pageURL = 'http';
+	if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+	$pageURL .= "://";
+	if ($_SERVER["SERVER_PORT"] != "80") {
+	$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+	} else {
+	$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+	}
+	return $pageURL;
+}
+
 register_activation_hook(__FILE__, "le_petite_url_install");
 
 add_action('template_redirect','le_petite_url_do_redirect');
