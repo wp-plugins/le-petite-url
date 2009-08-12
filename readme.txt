@@ -1,8 +1,8 @@
 === Plugin Name ===
 Contributors: philnelson
-Version: 1.05
+Version: 1.06
 Plugin URI: http://extrafuture.com/projects/le-petite-url/
-Tags: permalink, urls, mobile, url shortener, url shortening, shorturl, twitter
+Tags: permalink, urls, mobile, url shortener, url shortening, shorturl, short_url
 Requires at least: 2.5
 Tested up to: 2.8.3
 Stable tag: trunk
