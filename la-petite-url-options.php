@@ -75,7 +75,7 @@ jQuery(document).ready( function($) {
 		<label for="le_petite_use_shortlink">
 		<input name="le_petite_use_shortlink" type="checkbox" id="le_petite_use_shortlink" value="yes" <?php if(get_option('le_petite_use_shortlink') == "yes") { echo 'checked="checked"'; } ?> />
 		Use <a href="http://microformats.org/wiki/rel-shortlink" title="Learn about rel=shortlink">shortlink</a></label>
-		
+
 		</fieldset></td>
 	</tr>
 </table>
@@ -112,7 +112,7 @@ jQuery(document).ready( function($) {
 			<label><input name="le_petite_url_permalink_prefix" type="radio" value="custom" class="tog" <?php if($le_petite_url_permalink_prefix != "default") { echo 'checked="checked"'; } ?>/>Custom Prefix</label>
 		</th>
 		<td>
-			<?php echo $domain_prefix; ?>/<input name="le_petite_url_permalink_custom" style="width: 196px;" id="le_petite_url_permalink_custom" type="text" value="<?php echo $le_petite_url_permalink_custom; ?>" class="regular-text code" />
+			<?php echo $domain_prefix; ?><input name="le_petite_url_permalink_custom" style="width: 196px;" id="le_petite_url_permalink_custom" type="text" value="<?php echo $le_petite_url_permalink_custom; ?>" class="regular-text code" />
 		</td>
 	</tr>
 </table>

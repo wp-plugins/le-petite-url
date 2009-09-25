@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: philnelson
-Version: 1.5
+Version: 1.5.1
 Plugin URI: http://extrafuture.com/projects/la-petite-url/
 Tags: permalink, urls, mobile, url shortener, url shortening, shorturl, short_url, shortlink, linking
 Requires at least: 2.5
@@ -16,6 +16,8 @@ la petite url is an automatic URL shortener, allowing the user to provide simple
 la petite url is a personal URL shortener. Using your own Wordpress (2.5+) installation, la petite url allows the user to create shortened, unique, permalinks to their content using a combination of lowercase, uppercase, and numeric characters, which originate from their own domain name. By default la petite url generates a 5-character combination of lowercase letters only, for ease of use in entering on a mobile device or handset. With version 1.5 la petite url allows the user to add a custom, shorter domain for these shortened links.
 
 la petite url also supports <a href="http://sites.google.com/a/snaplog.com/wiki/short_url" title="read more about shorturl">shorturl auto discovery</a> and <a href="http://microformats.org/wiki/rel-shortlink" title="Read more about shortlink">rel="shortlink"</a>.
+
+la petite url provides easy functions for accessing it's generated URLs outside of la petite url, in your themes, or other plugins. The `the_full_petite_url` will output just the full URL, without any formatting, which can be used in various Twitter or other microblogging plugins. `the_petite_url_link` will output an HTML link using the configuration from la petite url's options page.
 
 == Installation ==
 
