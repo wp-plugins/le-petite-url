@@ -26,6 +26,22 @@ jQuery(document).ready( function($) {
 	$("#collectListTrigger").click(function () {
 		$("#collectList").toggle();
 	});
+	
+	$('#laPetiteUrlAdvanced').hide();
+	
+	$("#laPetiteUrlAdvancedTrigger").click(function () {
+	
+		if($('#laPetiteUrlAdvanced').is(':hidden'))
+		{
+			$("#laPetiteUrlAdvanced").slideDown();
+			$('#laPetiteUrlAdvancedTrigger').text('Hide advanced settings');
+		}
+		else
+		{
+			$("#laPetiteUrlAdvanced").slideUp();
+			$('#laPetiteUrlAdvancedTrigger').text('Show advanced settings');
+		}
+	});
 
 });
 //]]>
@@ -35,7 +51,7 @@ jQuery(document).ready( function($) {
 <h2>le petite url Settings</h2>
 <form method="post" action="options.php">
 <?php wp_nonce_field('update-options'); ?>
-<h3>General Settings</h3>
+<h3>Display Settings</h3>
 <table class="form-table">
 	<tr valign="top">
 		<th><label for="le_petite_url_link_text">Link Text: </label></th>
@@ -43,43 +59,13 @@ jQuery(document).ready( function($) {
 			<input name="le_petite_url_link_text" id="le_petite_url_link_text" type="text" value="<?php echo get_option('le_petite_url_link_text'); ?>" class="regular-text" />
 		</td>
 	</tr>
-	<tr valign="top">
-		<th><label for="le_petite_url_length">Petite URL Length: </label></th>
+	<tr>
+		<th><label for="le_petite_url_use_url_as_link_text">Use URL as Link Text Instead </label></th>
 		<td>
-			<input name="le_petite_url_length" id="le_petite_url_length" type="text" value="<?php echo get_option('le_petite_url_length'); ?>" class="regular-text" />
+			<input name="le_petite_url_use_url_as_link_text" id="le_petite_url_use_url_as_link_text" type="checkbox" value="yes" <?php if(get_option('le_petite_url_use_url_as_link_text') == "yes") { echo 'checked="checked"'; } ?>" class="regular-text" />
 		</td>
 	</tr>
-	<tr valign="top">
-		<th scope="row">URL generation settings</th>
-		<td><fieldset><legend class="hidden">URL Generation Settings</legend>
-		<label for="le_petite_url_use_lowercase">
-		<input name="le_petite_url_use_lowercase" type="checkbox" id="le_petite_url_use_lowercase" value="yes" <?php if(get_option('le_petite_url_use_lowercase') == "yes") { echo 'checked="checked"'; } ?> />
-		Use lowercase letters (<code>a-z</code>)</label>
-		<br />
-		<label for="le_petite_url_use_uppercase">
-		<input name="le_petite_url_use_uppercase" type="checkbox" id="le_petite_url_use_uppercase" value="yes" <?php if(get_option('le_petite_url_use_uppercase') == "yes") { echo 'checked="checked"'; } ?> />
-		Use uppercase letters (<code>A-Z</code>)</label>
-		<br />
-		<label for="le_petite_url_use_numbers">
-		<input name="le_petite_url_use_numbers" type="checkbox" id="le_petite_url_use_numbers" value="yes" <?php if(get_option('le_petite_url_use_numbers') == "yes") { echo 'checked="checked"'; } ?> />
-		Use numbers (<code>0-9</code>)</label>
-		</fieldset></td>
-	</tr>
-	<tr valign="top">
-		<th scope="row">Short URL Auto-Detection Settings</th>
-		<td><fieldset><legend class="hidden">Short URL Auto-Detection Settings</legend>
-		<label for="le_petite_use_short_url">
-		<input name="le_petite_use_short_url" type="checkbox" id="le_petite_use_short_url" value="yes" <?php if(get_option('le_petite_use_short_url') == "yes") { echo 'checked="checked"'; } ?> />
-		Use <a href="http://sites.google.com/a/snaplog.com/wiki/short_url" title="Learn about short_url: the short_url wiki">short_url</a></label>
-		<br>
-		<label for="le_petite_use_shortlink">
-		<input name="le_petite_use_shortlink" type="checkbox" id="le_petite_use_shortlink" value="yes" <?php if(get_option('le_petite_use_shortlink') == "yes") { echo 'checked="checked"'; } ?> />
-		Use <a href="http://microformats.org/wiki/rel-shortlink" title="Learn about rel=shortlink">shortlink</a></label>
-
-		</fieldset></td>
-	</tr>
 </table>
-
 <h3>Domain settings</h3>
 <table class="form-table">
 	<tr>
@@ -117,8 +103,50 @@ jQuery(document).ready( function($) {
 	</tr>
 </table>
 
+<p><strong><a href="#icon-options-general" id="laPetiteUrlAdvancedTrigger">Show advanced settings</a></strong></p>
+<div id="laPetiteUrlAdvanced">
+	<h3>Advanced Settings</h3>
+	<table class="form-table">
+		<tr valign="top">
+			<th><label for="le_petite_url_length">Petite URL Length: </label></th>
+			<td>
+				<input name="le_petite_url_length" id="le_petite_url_length" type="text" value="<?php echo get_option('le_petite_url_length'); ?>" class="regular-text" />
+			</td>
+		</tr>
+		<tr valign="top">
+			<th scope="row">URL Generation Settings</th>
+			<td><fieldset><legend class="hidden">URL Generation Settings</legend>
+			<label for="le_petite_url_use_lowercase">
+			<input name="le_petite_url_use_lowercase" type="checkbox" id="le_petite_url_use_lowercase" value="yes" <?php if(get_option('le_petite_url_use_lowercase') == "yes") { echo 'checked="checked"'; } ?> />
+			Use lowercase letters (<code>a-z</code>)</label>
+			<br />
+			<label for="le_petite_url_use_uppercase">
+			<input name="le_petite_url_use_uppercase" type="checkbox" id="le_petite_url_use_uppercase" value="yes" <?php if(get_option('le_petite_url_use_uppercase') == "yes") { echo 'checked="checked"'; } ?> />
+			Use uppercase letters (<code>A-Z</code>)</label>
+			<br />
+			<label for="le_petite_url_use_numbers">
+			<input name="le_petite_url_use_numbers" type="checkbox" id="le_petite_url_use_numbers" value="yes" <?php if(get_option('le_petite_url_use_numbers') == "yes") { echo 'checked="checked"'; } ?> />
+			Use numbers (<code>0-9</code>)</label>
+			</fieldset></td>
+		</tr>
+		<tr valign="top">
+			<th scope="row">Short URL Auto-Detection Settings</th>
+			<td><fieldset><legend class="hidden">Short URL Auto-Detection Settings</legend>
+			<label for="le_petite_use_short_url">
+			<input name="le_petite_use_short_url" type="checkbox" id="le_petite_use_short_url" value="yes" <?php if(get_option('le_petite_use_short_url') == "yes") { echo 'checked="checked"'; } ?> />
+			Use <a href="http://sites.google.com/a/snaplog.com/wiki/short_url" title="Learn about short_url: the short_url wiki">short_url</a></label>
+			<br>
+			<label for="le_petite_use_shortlink">
+			<input name="le_petite_use_shortlink" type="checkbox" id="le_petite_use_shortlink" value="yes" <?php if(get_option('le_petite_use_shortlink') == "yes") { echo 'checked="checked"'; } ?> />
+			Use <a href="http://microformats.org/wiki/rel-shortlink" title="Learn about rel=shortlink">shortlink</a></label>
+	
+			</fieldset></td>
+		</tr>
+	</table>
+</div>
+
 <input type="hidden" name="action" value="update" />
-<input type="hidden" name="page_options" value="le_petite_url_permalink_prefix,le_petite_url_permalink_custom,le_petite_url_link_text,le_petite_url_use_lowercase,le_petite_url_use_uppercase,le_petite_url_use_numbers,le_petite_url_length,le_petite_url_permalink_domain,le_petite_url_domain_custom,le_petite_use_shortlink" />
+<input type="hidden" name="page_options" value="le_petite_url_permalink_prefix,le_petite_url_permalink_custom,le_petite_url_link_text,le_petite_url_use_lowercase,le_petite_url_use_uppercase,le_petite_url_use_numbers,le_petite_url_length,le_petite_url_permalink_domain,le_petite_url_domain_custom,le_petite_use_shortlink,le_petite_url_use_url_as_link_text" />
 <p class="submit">
 	<input type="submit" name="submit" class="button-primary" value="Save Changes" />
 </p>

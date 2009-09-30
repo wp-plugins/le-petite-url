@@ -28,7 +28,7 @@ global $petite_table;
 
 $petite_table = "le_petite_urls";
 
-add_option("le_petite_url_version", "1.5.1");
+add_option("le_petite_url_version", "1.5.2");
 add_option("le_petite_url_use_mobile_style", "yes");
 add_option("le_petite_url_link_text", "petite url");
 add_option("le_petite_url_permalink_prefix", "default");
@@ -45,6 +45,7 @@ add_option("le_petite_use_shortlink", "yes");
 add_option("le_petite_url_permalink_domain", "default");
 add_option("le_petite_url_domain_custom", "");
 add_option("le_petite_url_hide_godaddy","no");
+add_option("le_petite_url_use_url_as_link_text","yes");
 
 function le_petite_url_check_url($the_petite)
 {
@@ -270,14 +271,22 @@ function the_petite_url_link()
 	global $wpdb;
 
 	$post_id = $wp_query->post->ID;
-	$anchor_text = get_option('le_petite_url_link_text');
-
 	$petite_url = get_le_petite_url($post_id);
+	
 	if($petite_url != "")
 	{
 		$le_petite_url_permalink = get_la_petite_url_permalink($post_id);
+			
+		if(get_option('le_petite_url_use_url_as_link_text') == "yes")
+		{
+			$anchor_text = $le_petite_url_permalink;
+		}
+		else
+		{
+			$anchor_text = get_option('le_petite_url_link_text');
+		}
 		
-		echo '<a href="'.$le_petite_url_permalink.'" class="le_petite_url" rel="nofollow" title="shortened permalink">'.htmlspecialchars($anchor_text, ENT_QUOTES, 'UTF-8').'</a>';
+		echo '<a href="'.$le_petite_url_permalink.'" class="le_petite_url" rel="nofollow" title="shortened permalink for this page">'.htmlspecialchars($anchor_text, ENT_QUOTES, 'UTF-8').'</a>';
 	}
 }
 
@@ -319,7 +328,6 @@ function le_petite_url_short_url_header()
 		global $wpdb;
 
 		$post_id = $wp_query->post->ID;
-		$anchor_text = get_option('le_petite_url_link_text');
 	
 		$petite_url = get_le_petite_url($post_id);
 		if($petite_url != "")
@@ -341,7 +349,6 @@ function le_petite_url_shortlink_header()
 		global $wpdb;
 
 		$post_id = $wp_query->post->ID;
-		$anchor_text = get_option('le_petite_url_link_text');
 
 		$petite_url = get_le_petite_url($post_id);
 		if($petite_url != "")
