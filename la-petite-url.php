@@ -3,7 +3,7 @@
 Plugin Name: la petite url
 Plugin URI: http://extrafuture.com/projects/la-petite-url
 Description: A personal URL shortener.
-Version: 1.5.1
+Version: 1.5.2
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
