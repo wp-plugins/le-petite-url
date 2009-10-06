@@ -48,7 +48,7 @@ jQuery(document).ready( function($) {
 </script>
 <div class="wrap">
 	<div id="icon-options-general" class="icon32"><br /></div>
-<h2>le petite url Settings</h2>
+<h2>la petite url Settings</h2>
 <form method="post" action="options.php">
 <?php wp_nonce_field('update-options'); ?>
 <h3>Display Settings</h3>

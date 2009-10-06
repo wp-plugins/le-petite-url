@@ -3,7 +3,7 @@
 Plugin Name: la petite url
 Plugin URI: http://extrafuture.com/projects/la-petite-url
 Description: A personal URL shortener.
-Version: 1.5.2
+Version: 1.6
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
@@ -28,7 +28,7 @@ global $petite_table;
 
 $petite_table = "le_petite_urls";
 
-add_option("le_petite_url_version", "1.5.2");
+add_option("le_petite_url_version", "1.6");
 add_option("le_petite_url_use_mobile_style", "yes");
 add_option("le_petite_url_link_text", "petite url");
 add_option("le_petite_url_permalink_prefix", "default");
@@ -90,9 +90,12 @@ function le_petite_url_make_url($post)
 	global $wpdb;
 	global $petite_table;
 	
-	try {
-	$post_parent = $wpdb->get_var("SELECT post_parent FROM ".$wpdb->posts." WHERE ID = ".$post."");
-	} catch (Exception $e) {
+	try 
+	{
+		$post_parent = $wpdb->get_var("SELECT post_parent FROM ".$wpdb->posts." WHERE ID = ".$post."");
+	}
+	catch (Exception $e)
+	{
 		echo 'Caught exception: ',  $e->getMessage(), "\n";
 	}
 	
@@ -109,7 +112,14 @@ function le_petite_url_make_url($post)
 			{
 				$good_url = "yes";
 				try {
-					$wpdb->query("INSERT INTO ".$wpdb->prefix. $petite_table ." VALUES($post_parent,'".mysql_real_escape_string($string)."')");
+					if($post_parent != 0)
+					{
+						$wpdb->query("INSERT INTO ".$wpdb->prefix. $petite_table ." VALUES($post_parent,'".mysql_real_escape_string($string)."')");
+					}
+					else
+					{
+						$wpdb->query("INSERT INTO ".$wpdb->prefix. $petite_table ." VALUES($post,'".mysql_real_escape_string($string)."')");
+					}
 				}
 				catch(Exception $e)
 				{
@@ -170,8 +180,8 @@ function le_petite_url_install()
 function le_petite_url_sidebar() {
 
     if( function_exists( 'add_meta_box' )) {
-  		add_meta_box( 'le_petite_url_box', __( 'le petite url', 'le_petite_url_textdomain' ), 'le_petite_url_generate_sidebar', 'post', 'side' );
-  		add_meta_box( 'le_petite_url_box', __( 'le petite url', 'le_petite_url_textdomain' ), 'le_petite_url_generate_sidebar', 'page', 'side' );
+  		add_meta_box( 'le_petite_url_box', __( 'la petite url', 'le_petite_url_textdomain' ), 'le_petite_url_generate_sidebar', 'post', 'side' );
+  		add_meta_box( 'le_petite_url_box', __( 'la petite url', 'le_petite_url_textdomain' ), 'le_petite_url_generate_sidebar', 'page', 'side' );
 	}
 	else
 	{
@@ -262,6 +272,18 @@ function get_le_petite_url($post_id)
 	if($petite_url != "")
 	{
 		return $petite_url;
+	}
+	else
+	{
+
+		le_petite_url_make_url($post_id);
+		
+		$petite_url = $wpdb->get_var("SELECT petite_url FROM ".$url_table." WHERE post_id = ".$post_id."");
+		if($petite_url != "")
+		{
+			return $petite_url;
+		}
+	
 	}
 }
 
