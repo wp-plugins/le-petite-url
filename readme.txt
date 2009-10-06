@@ -9,7 +9,7 @@ Stable tag: trunk
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
-la petite url is an automatic URL shortener, allowing the user to provide simple, easy-to-remember, and easy-to-say URLs for their blog posts and pages.
+la petite url is a personal, self-hosted, URL shortener for WordPress.
 
 == Description ==
 
@@ -32,3 +32,9 @@ Installing la petite url is a breeze.
 == Screenshots ==
 
 1. la petite url's options panel
+
+== Changelog ==
+
+= 1.6 =
+* la petite url now generates URLs for posts that do not have them on page load.
+* Fixed places where 'le petite url' was still referenced
