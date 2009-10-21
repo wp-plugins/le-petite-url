@@ -3,7 +3,7 @@
 Plugin Name: la petite url
 Plugin URI: http://extrafuture.com/projects/la-petite-url
 Description: A personal URL shortener.
-Version: 1.6
+Version: 1.6.1
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
@@ -28,7 +28,7 @@ global $petite_table;
 
 $petite_table = "le_petite_urls";
 
-add_option("le_petite_url_version", "1.6");
+add_option("le_petite_url_version", "1.6.1");
 add_option("le_petite_url_use_mobile_style", "yes");
 add_option("le_petite_url_link_text", "petite url");
 add_option("le_petite_url_permalink_prefix", "default");
@@ -87,43 +87,47 @@ function le_petite_url_generate_string()
 
 function le_petite_url_make_url($post)
 {
-	global $wpdb;
-	global $petite_table;
-	
-	try 
+	if($post != "")
 	{
-		$post_parent = $wpdb->get_var("SELECT post_parent FROM ".$wpdb->posts." WHERE ID = ".$post."");
-	}
-	catch (Exception $e)
-	{
-		echo 'Caught exception: ',  $e->getMessage(), "\n";
-	}
-	
-	$post_query = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."$petite_table WHERE post_id = ".$post."");
-	
-	if(count($post_query) == 0)
-	{
-		$good_url = "no";
-		while($good_url == "no")
+		global $wpdb;
+		global $petite_table;
+		
+		try 
 		{
-			$string = le_petite_url_generate_string();
-			$post_query = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."$petite_table WHERE petite_url = ".$string."");
-			if(count($post_query) == 0)
+			$post_parent = $wpdb->get_var("SELECT post_parent FROM ".$wpdb->posts." WHERE ID = ".$post."");
+		}
+		catch (Exception $e)
+		{
+			echo 'Caught exception: ',  $e->getMessage(), "\n";
+		}
+		
+		$post_query = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."$petite_table WHERE post_id = ".$post."");
+		$post_parent_query = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."$petite_table WHERE post_id = ".$post_parent."");
+		
+		if(count($post_query) == 0 && count($post_parent_query) == 0 && $post != "")
+		{
+			$good_url = "no";
+			while($good_url == "no")
 			{
-				$good_url = "yes";
-				try {
-					if($post_parent != 0)
-					{
-						$wpdb->query("INSERT INTO ".$wpdb->prefix. $petite_table ." VALUES($post_parent,'".mysql_real_escape_string($string)."')");
-					}
-					else
-					{
-						$wpdb->query("INSERT INTO ".$wpdb->prefix. $petite_table ." VALUES($post,'".mysql_real_escape_string($string)."')");
-					}
-				}
-				catch(Exception $e)
+				$string = le_petite_url_generate_string();
+				$post_query = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."$petite_table WHERE petite_url = '".$string."'");
+				if(count($post_query) == 0)
 				{
-					echo 'Caught exception: ',  $e->getMessage(), "\n";
+					$good_url = "yes";
+					try {
+						if($post_parent != '0' && $post_parent != "")
+						{
+							$wpdb->query("INSERT INTO ".$wpdb->prefix. $petite_table ." VALUES($post_parent,'".mysql_real_escape_string($string)."')");
+						}
+						else
+						{
+							$wpdb->query("INSERT INTO ".$wpdb->prefix. $petite_table ." VALUES($post,'".mysql_real_escape_string($string)."')");
+						}
+					}
+					catch(Exception $e)
+					{
+						echo 'Caught exception: ',  $e->getMessage(), "\n";
+					}
 				}
 			}
 		}
@@ -262,28 +266,31 @@ function the_petite_url()
 
 function get_le_petite_url($post_id)
 {
-	global $wp_query;
-	global $wpdb;
-	global $petite_table;
-	
-	$url_table = $wpdb->prefix . $petite_table;
-
-	$petite_url = $wpdb->get_var("SELECT petite_url FROM ".$url_table." WHERE post_id = ".$post_id."");
-	if($petite_url != "")
+	if($post_id != "")
 	{
-		return $petite_url;
-	}
-	else
-	{
-
-		le_petite_url_make_url($post_id);
+		global $wp_query;
+		global $wpdb;
+		global $petite_table;
 		
+		$url_table = $wpdb->prefix . $petite_table;
+	
 		$petite_url = $wpdb->get_var("SELECT petite_url FROM ".$url_table." WHERE post_id = ".$post_id."");
 		if($petite_url != "")
 		{
 			return $petite_url;
 		}
+		else
+		{
 	
+			le_petite_url_make_url($post_id);
+			
+			$petite_url = $wpdb->get_var("SELECT petite_url FROM ".$url_table." WHERE post_id = ".$post_id."");
+			if($petite_url != "")
+			{
+				return $petite_url;
+			}
+		
+		}
 	}
 }
 

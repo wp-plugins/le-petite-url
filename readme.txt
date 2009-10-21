@@ -1,8 +1,8 @@
 === Plugin Name ===
 Contributors: philnelson
-Version: 1.6
+Version: 1.6.1
 Plugin URI: http://extrafuture.com/projects/la-petite-url/
-Tags: permalink, urls, mobile, url shortener, url shortening, shorturl, short_url, shortlink, linking
+Tags: permalink, urls, mobile, url shortener, url shortening, shorturl, short_url, shortlink, linking, short permalink, short url
 Requires at least: 2.5
 Tested up to: 2.8.4
 Stable tag: trunk
@@ -28,6 +28,7 @@ Installing la petite url is a breeze.
 1. Upload the `le-petite-url` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Place `<?php the_petite_url_link(); ?>` in your template where you'd like the shortened URL link to show up.
+1. If you'd like to use a separate domain for your shortened links, <a href="http://extrafuture.com/2009/10/15/using-la-petite-url-with-a-custom-shorter-domain-name/">see this article</a>.
 
 == Screenshots ==
 
@@ -35,6 +36,9 @@ Installing la petite url is a breeze.
 
 == Changelog ==
 
+= 1.6.1 =
+* Fixed a bug that resulted in tons of PHP notice logs, due to a badly-formatted database call. Thanks to <a href="http://smithsrus.com/">Doug Smith</a> report.
+
 = 1.6 =
-* la petite url now generates URLs for posts that do not have them on page load.
+* la petite url now generates URLs (on page load) for posts that do not have them.
 * Fixed places where 'le petite url' was still referenced
