@@ -4,12 +4,12 @@ Version: 1.6.1
 Plugin URI: http://extrafuture.com/projects/la-petite-url/
 Tags: permalink, urls, mobile, url shortener, url shortening, shorturl, short_url, shortlink, linking, short permalink, short url
 Requires at least: 2.5
-Tested up to: 2.8.4
+Tested up to: 2.9
 Stable tag: trunk
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
-la petite url is a personal, self-hosted, URL shortener for WordPress.
+la petite url is a custom permalink/URL shortener for WordPress.
 
 == Description ==
 
