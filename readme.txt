@@ -9,17 +9,17 @@ Stable tag: trunk
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
-la petite url is a custom permalink/URL shortener for WordPress.
+la petite url is a custom URL shortener for WordPress.
 
 == Description ==
 
-<strong>NOTE:</strong> la petite url version 1.5.2 and higher defaults to using your shortened URLs as the text of the link from the `the_petite_url_link` function. This setting can be overwritten in the options page.
+<strong>NOTE:</strong> la petite url version 1.5.2 and higher defaults to using your shortened URLs as link text which is output by the `the_petite_url_link` function. This setting can be overwritten in the options page.
 
-la petite url is a personal URL shortener. Using your own Wordpress (2.5+) installation, la petite url allows the user to create shortened, unique, permalinks to their content using a combination of lowercase, uppercase, and numeric characters, which originate from their own domain name. By default la petite url generates a 5-character combination of lowercase letters only, for ease of use in entering on a mobile device or handset. With version 1.5 la petite url allows the user to add a custom, shorter domain for these shortened links.
+la petite url is a custom URL shortener. Using your own Wordpress (2.5+) installation, la petite url allows you to create shortened, unique, permalinks to your content using a combination of lowercase, uppercase, or numeric characters, which originate from your own domain name, instead of a third-party like bit.ly. By default la petite url generates a 5-character combination of lowercase letters only, for ease of use in entering on a mobile device or handset.
 
-la petite url also supports <a href="http://sites.google.com/a/snaplog.com/wiki/short_url" title="read more about shorturl">shorturl auto discovery</a> and <a href="http://microformats.org/wiki/rel-shortlink" title="Read more about shortlink">rel="shortlink"</a>.
+la petite url supports <a href="http://sites.google.com/a/snaplog.com/wiki/short_url" title="read more about shorturl">shorturl auto discovery</a> and <a href="http://microformats.org/wiki/rel-shortlink" title="Read more about shortlink">rel="shortlink"</a>.
 
-la petite url provides easy functions for accessing it's generated URLs outside of la petite url, in your themes, or other plugins. The `the_full_petite_url` will output just the full URL, without any formatting, which can be used in various Twitter or other microblogging plugins. `the_petite_url_link` will output an HTML link using the configuration from la petite url's options page.
+la petite url provides easy functions for accessing it's generated URLs outside of la petite url, in your themes, or other plugins. The `the_full_petite_url` function will output the full URL, without any formatting, which can be used elsewhere, such as in Twitter or other microblogging plugins. `the_petite_url_link` function will output an HTML link using the configuration from la petite url's options page.
 
 == Installation ==
 
@@ -28,7 +28,7 @@ Installing la petite url is a breeze.
 1. Upload the `le-petite-url` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Place `<?php the_petite_url_link(); ?>` in your template where you'd like the shortened URL link to show up.
-1. If you'd like to use a separate domain for your shortened links, <a href="http://extrafuture.com/2009/10/15/using-la-petite-url-with-a-custom-shorter-domain-name/">see this article</a>.
+1. If you'd like to use a different domain for your shortened links, <a href="http://extrafuture.com/2009/10/15/using-la-petite-url-with-a-custom-shorter-domain-name/">see this article</a> about custom domains.
 
 == Screenshots ==
 
