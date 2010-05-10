@@ -40,7 +40,6 @@ Installing la petite url is a breeze.
 
 * Totally rewritten and reorganized options page
 * Removed "registration"
-* Custom short urls for posts and pages (!)
 * Changed hook for redirection from 'template_redirect' to 'init', which is an order of magnitude faster.
 * Due to above change, won't interfere with JS-based hit trackers by showing two hits for the same page.
 * Terse changelog notes
