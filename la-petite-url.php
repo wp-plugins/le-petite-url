@@ -2,8 +2,8 @@
 /*
 Plugin Name: la petite url
 Plugin URI: http://extrafuture.com/projects/la-petite-url
-Description: A personal URL shortener.
-Version: 1.6.1
+Description: Personal, customized URL shortening for WordPress.
+Version: 2.0
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
@@ -28,7 +28,7 @@ global $petite_table;
 
 $petite_table = "le_petite_urls";
 
-add_option("le_petite_url_version", "1.6.1");
+add_option("le_petite_url_version", "2");
 add_option("le_petite_url_use_mobile_style", "yes");
 add_option("le_petite_url_link_text", "petite url");
 add_option("le_petite_url_permalink_prefix", "default");
@@ -46,6 +46,9 @@ add_option("le_petite_url_permalink_domain", "default");
 add_option("le_petite_url_domain_custom", "");
 add_option("le_petite_url_hide_godaddy","no");
 add_option("le_petite_url_use_url_as_link_text","yes");
+add_option("le_petite_url_add_to_rss","yes");
+add_option("le_petite_url_add_to_rss_text","If you require a short URL to link to this article, please use %%link%%");
+add_option("le_petite_url_hide_nag","no");
 
 function le_petite_url_check_url($the_petite)
 {
@@ -337,7 +340,7 @@ function the_full_petite_url()
 
 function le_petite_url_admin_panel()
 {
-	add_options_page('la petite url Options', 'la petite url', 8, 'le-petite-url/la-petite-url-options.php', 'le_petite_url_settings');
+	add_options_page('la petite url Options', 'la petite url', 8, 'la-petite-url/la-petite-url-options.php', 'le_petite_url_settings');
 	if ( current_user_can('edit_posts') && function_exists('add_submenu_page') ) {
 		add_filter( 'plugin_action_links', 'le_petite_url_plugin_actions', 10, 2 );
 	}
@@ -400,7 +403,7 @@ function le_petite_url_plugin_actions($links, $file)
  
 	if( $file == $this_plugin )
 	{
-		$settings_link = '<a href="index.php?page=le-petite-url/la-petite-url-options.php">' . __('Settings') . '</a>';
+		$settings_link = '<a href="index.php?page=la-petite-url/la-petite-url-options.php">' . __('Settings') . '</a>';
 		$links = array_merge( array($settings_link), $links); // before other links
 	}
 	return $links;
@@ -412,9 +415,28 @@ function le_petite_url_register()
 	update_option('le_petite_url_registered_on', time());
 }
 
-function le_petite_url_hide_godaddy()
+function le_petite_url_hide_godaddy($option)
 {
-	update_option('le_petite_url_hide_godaddy', "yes");
+	if($option == 'yes')
+	{
+		update_option('le_petite_url_hide_godaddy', "yes");
+	}
+	else
+	{
+		update_option('le_petite_url_hide_godaddy', "no");
+	}
+}
+
+function le_petite_url_hide_nag($option)
+{
+	if($option == 'yes')
+	{
+		update_option('le_petite_url_hide_nag', "yes");
+	}
+	else
+	{
+		update_option('le_petite_url_hide_nag', "no");
+	}
 }
 
 // function adapted from http://www.webcheatsheet.com/PHP/get_current_page_url.php
@@ -434,13 +456,39 @@ function le_petite_url_current_page()
 
 register_activation_hook(__FILE__, "le_petite_url_install");
 
-add_action('template_redirect','le_petite_url_do_redirect');
+add_action('init','le_petite_url_do_redirect');
 add_action('save_post','le_petite_url_make_url');
 add_action('admin_menu', 'le_petite_url_sidebar');
 add_action('wp_head', 'le_petite_url_short_url_header');
+
 if(is_admin()) 
 {
 	add_action('admin_menu', 'le_petite_url_admin_panel');
 }
+
+/* Widget Stuff */
+
+function la_petite_url_widget()
+{
+	echo "<p>This post's short url is <a href='";
+	the_full_petite_url();
+	echo "'>";
+	the_full_petite_url();
+	echo "</a></p>";
+}
+ 
+function widget_la_petite_url_widget($args) {
+  extract($args);
+  echo $before_widget;
+  echo $before_title;?>Shortened Permalink<?php echo $after_title;
+  la_petite_url_widget();
+  echo $after_widget;
+}
+ 
+function la_petite_url_widget_init()
+{
+  register_sidebar_widget(__('la petite url'), 'widget_la_petite_url_widget');
+}
+add_action("plugins_loaded", "la_petite_url_widget_init");
 
 ?>
