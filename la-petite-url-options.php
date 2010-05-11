@@ -54,7 +54,7 @@ else
 						<li>If not, maybe you'll just feel good about it?</li>
 						<li>The confidence to crush your enemies</li>
 					</ul>
-					<p id="buy-button"><a href="?page=la-petite-url%2Fla-petite-url-options.php&amp;hide_nag=yes" class="cssbutton gray">Nah</a> <a id="buy-it" class="cssbutton blue" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7R52H8KRFL92G">I'd like to buy la petite url</a></p>
+					<p id="buy-button"><a href="?page=le-petite-url%2Fla-petite-url-options.php&amp;hide_nag=yes" class="cssbutton gray">Nah</a> <a id="buy-it" class="cssbutton blue" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7R52H8KRFL92G">I'd like to buy la petite url</a></p>
 					<p>Even if you don't want to register, how about <a href="http://eepurl.com/wBQ5">signing up for la petite url's (infrequent) newsletter</a>?</p>
 				</div>
 				<?php } ?>
@@ -63,7 +63,7 @@ else
 					<div class="la-petite-section-header">
 						<h3>Domain &amp; URL Prefix</h3>
 						<div class="upgrade-now">
-							<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7R52H8KRFL92G" class="small cssbutton white">Buy la petite url</a></p>
+							<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7R52H8KRFL92G">Buy la petite url</a>  | <a href="http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url">Help & Support</a></p>
 						</div>
 					</div>
 					
@@ -99,7 +99,7 @@ else
 					<div class="la-petite-section-header">
 						<h3>URL Generation</h3>
 						<div class="upgrade-now">
-							<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7R52H8KRFL92G" class="small cssbutton white">Buy la petite url</a></p>
+							<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7R52H8KRFL92G">Buy la petite url</a>  | <a href="http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url">Help & Support</a></p>
 						</div>
 					</div>
 					
@@ -131,7 +131,7 @@ else
 					<div class="la-petite-section-header">
 						<h3>Auto-Detection</h3>
 						<div class="upgrade-now">
-							<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7R52H8KRFL92G" class="small cssbutton white">Buy la petite url</a></p>
+							<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7R52H8KRFL92G">Buy la petite url</a>  | <a href="http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url">Help & Support</a></p>
 						</div>
 					</div>
 

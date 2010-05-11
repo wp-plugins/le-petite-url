@@ -3,7 +3,7 @@
 Plugin Name: la petite url
 Plugin URI: http://extrafuture.com/projects/la-petite-url
 Description: Personal, customized URL shortening for WordPress.
-Version: 2.0
+Version: 2.0.1
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
@@ -340,7 +340,7 @@ function the_full_petite_url()
 
 function le_petite_url_admin_panel()
 {
-	add_options_page('la petite url Options', 'la petite url', 8, 'la-petite-url/la-petite-url-options.php', 'le_petite_url_settings');
+	add_options_page('la petite url Options', 'la petite url', 8, 'le-petite-url/la-petite-url-options.php', 'le_petite_url_settings');
 	if ( current_user_can('edit_posts') && function_exists('add_submenu_page') ) {
 		add_filter( 'plugin_action_links', 'le_petite_url_plugin_actions', 10, 2 );
 	}
@@ -403,7 +403,7 @@ function le_petite_url_plugin_actions($links, $file)
  
 	if( $file == $this_plugin )
 	{
-		$settings_link = '<a href="index.php?page=la-petite-url/la-petite-url-options.php">' . __('Settings') . '</a>';
+		$settings_link = '<a href="index.php?page=le-petite-url/la-petite-url-options.php">' . __('Settings') . '</a>';
 		$links = array_merge( array($settings_link), $links); // before other links
 	}
 	return $links;

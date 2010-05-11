@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: philnelson
-Version: 2.0
+Version: 2.0.1
 Plugin URI: http://extrafuture.com/projects/la-petite-url/
 Tags: permalink, urls, mobile, url shortener, url shortening, shorturl, short_url, shortlink, linking, short permalink, short url
 Requires at least: 2.5
@@ -35,6 +35,11 @@ Installing la petite url is a breeze.
 3. la petite url's auto-detection settings
 
 == Changelog ==
+
+= 2.0.1 =
+
+* Added link to support / bug report on Get Satisfaction
+* Modified "buy la petite url" heading item
 
 = 2.0 =
 

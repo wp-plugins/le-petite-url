@@ -241,12 +241,12 @@ h3 {
 
 .la-petite-section-header p {
 	float: left;
-	margin: 5px;
+	margin: 7px 5px 5px 5px;
 }
 
 .upgrade-now {
 	position: absolute;
-	left: 460px;
+	left: 365px;
 }
 
 .upgrade-now:first-child {
@@ -254,7 +254,7 @@ h3 {
 }
 
 .upgrade-now a {
-	margin: -2px 0 0 0;
+	color: #000;
 }
 
 .la-petite-controls-group {
