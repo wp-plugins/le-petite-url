@@ -1,9 +1,10 @@
 <?php
 /*
 Plugin Name: la petite url
-Plugin URI: http://extrafuture.com/projects/la-petite-url
+Plugin URI: http://extrafuture.com/la-petite-url/
+Help & Support: http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url
 Description: Personal, customized URL shortening for WordPress.
-Version: 2.0.1
+Version: 2.0.2
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
@@ -25,10 +26,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 global $wpdb;
 global $petite_table;
+global $petite_hit_table;
 
 $petite_table = "le_petite_urls";
+$petite_hit_table = "le_petite_url_hits";
 
-add_option("le_petite_url_version", "2");
+add_option("le_petite_url_version", "2.0.2");
 add_option("le_petite_url_use_mobile_style", "yes");
 add_option("le_petite_url_link_text", "petite url");
 add_option("le_petite_url_permalink_prefix", "default");
@@ -141,6 +144,7 @@ function le_petite_url_do_redirect()
 {
 	global $wpdb;
 	global $petite_table;
+	global $petite_hit_table;
 	
 	$request = $_SERVER['REQUEST_URI'];
 	$the_petite = trim($request);
@@ -152,6 +156,8 @@ function le_petite_url_do_redirect()
 	
 	if(le_petite_url_check_url($le_petite_url_split[$le_petite_url_use]))
 	{
+		le_petite_url_log_hit($le_petite_url_split[$le_petite_url_use]);
+		
 		$post_id = $wpdb->get_var("SELECT post_id FROM $wpdb->prefix".$petite_table." WHERE petite_url = '".$le_petite_url_split[$le_petite_url_use]."'");
 		
 		$expires = date('D, d M Y G:i:s T',strtotime("+1 week"));
@@ -166,11 +172,40 @@ function le_petite_url_do_redirect()
 	}
 }
 
+function le_petite_url_log_hit($petite_url)
+{
+	global $wpdb;
+	global $petite_table;
+	global $petite_hit_table;
+
+	$referrer = $_SERVER["HTTP_REFERER"];
+	
+	$last_hit_time = $wpdb->get_var("SELECT `timestamp` FROM $wpdb->prefix".$petite_hit_table." order by `timestamp`");
+	
+	if(!$last_hit_time)
+	{
+		$last_time = time();
+	}
+	else
+	{
+		$last_time = strtotime($last_hit_time);
+	}
+	
+	$delta_time = time() - $last_time;
+
+	$wpdb->query("INSERT INTO ".$wpdb->prefix. $petite_hit_table ." VALUES('".$petite_url."','".$delta_time."','".date('Y-m-d H:i:s')."','".$referrer."')");
+	
+}
+
 function le_petite_url_install()
 {
 	global $wpdb;
 	global $petite_table;
+	global $petite_hit_table;
+	
 	$url_table = $wpdb->prefix . $petite_table;
+	$hits_table = $wpdb->prefix . $petite_hit_table;
+	
 	if($wpdb->get_var("SHOW TABLES LIKE '$url_table'") != $url_table) 
 	{
 		$sql = "CREATE TABLE  `" . $url_table . "` (
@@ -178,6 +213,18 @@ function le_petite_url_install()
 				`petite_url` VARCHAR( 255 ) NOT NULL ,
 				PRIMARY KEY (  `post_id` )
 				);";
+		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+		dbDelta($sql);
+	}
+
+	if($wpdb->get_var("SHOW TABLES LIKE '$hits_table'") != $hits_table) 
+	{
+		$sql = "CREATE TABLE `".$hits_table."` (
+			  `petite_url` varchar(255) NOT NULL,
+			  `dt` int(11) NOT NULL,
+			  `timestamp` datetime NOT NULL,
+			  `referrer` text
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
 	}
@@ -340,10 +387,11 @@ function the_full_petite_url()
 
 function le_petite_url_admin_panel()
 {
-	add_options_page('la petite url Options', 'la petite url', 8, 'le-petite-url/la-petite-url-options.php', 'le_petite_url_settings');
+	add_options_page('la petite url', 'la petite url', 8, 'le-petite-url/la-petite-url-options.php', 'le_petite_url_settings');
 	if ( current_user_can('edit_posts') && function_exists('add_submenu_page') ) {
 		add_filter( 'plugin_action_links', 'le_petite_url_plugin_actions', 10, 2 );
 	}
+	
 }
 
 function le_petite_url_settings()

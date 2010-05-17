@@ -55,7 +55,6 @@ else
 						<li>The confidence to crush your enemies</li>
 					</ul>
 					<p id="buy-button"><a href="?page=le-petite-url%2Fla-petite-url-options.php&amp;hide_nag=yes" class="cssbutton gray">Nah</a> <a id="buy-it" class="cssbutton blue" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7R52H8KRFL92G">I'd like to buy la petite url</a></p>
-					<p>Even if you don't want to register, how about <a href="http://eepurl.com/wBQ5">signing up for la petite url's (infrequent) newsletter</a>?</p>
 				</div>
 				<?php } ?>
 
