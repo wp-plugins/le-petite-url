@@ -4,7 +4,7 @@ Version: 2.0.2
 Plugin URI: http://extrafuture.com/projects/la-petite-url/
 Tags: permalink, urls, mobile, url shortener, url shortening, shorturl, short_url, shortlink, linking, short permalink, short url
 Requires at least: 2.5
-Tested up to: 2.9.2
+Tested up to: 3.0 
 Stable tag: trunk
 Author: Phil Nelson
 Author URI: http://extrafuture.com
