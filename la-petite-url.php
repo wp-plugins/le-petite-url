@@ -4,7 +4,7 @@ Plugin Name: la petite url
 Plugin URI: http://extrafuture.com/la-petite-url/
 Help & Support: http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url
 Description: Personal, customized URL shortening for WordPress.
-Version: 2.0.2
+Version: 2.0.2.1
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
@@ -31,7 +31,7 @@ global $petite_hit_table;
 $petite_table = "le_petite_urls";
 $petite_hit_table = "le_petite_url_hits";
 
-add_option("le_petite_url_version", "2.0.2");
+add_option("le_petite_url_version", "2.0.2.1");
 add_option("le_petite_url_use_mobile_style", "yes");
 add_option("le_petite_url_link_text", "petite url");
 add_option("le_petite_url_permalink_prefix", "default");
@@ -387,7 +387,7 @@ function the_full_petite_url()
 
 function le_petite_url_admin_panel()
 {
-	add_options_page('la petite url', 'la petite url', 8, 'le-petite-url/la-petite-url-options.php', 'le_petite_url_settings');
+	add_options_page('la petite url', 'la petite url', 8, 'le-petite-url/le-petite-url-options.php', 'le_petite_url_settings');
 	if ( current_user_can('edit_posts') && function_exists('add_submenu_page') ) {
 		add_filter( 'plugin_action_links', 'le_petite_url_plugin_actions', 10, 2 );
 	}
