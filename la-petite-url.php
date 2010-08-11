@@ -415,8 +415,8 @@ function le_petite_url_short_url_header()
 		if($petite_url != "")
 		{
 			$le_petite_url_permalink = get_la_petite_url_permalink($post_id);
-
-			echo '<link rel="shorturl" href="'.$le_petite_url_permalink.'" />';
+            echo "<!-- la petite url version ".get_option('le_petite_url_version')." -->\n";
+			echo "<link rel='shorturl' href='".$le_petite_url_permalink."' />\n";
 		}
 	
 	}
@@ -436,8 +436,8 @@ function le_petite_url_shortlink_header()
 		if($petite_url != "")
 		{
 			$le_petite_url_permalink = get_la_petite_url_permalink($post_id);
-
-			echo '<link rel="shortlink" href="'.$le_petite_url_permalink.'" />';
+            echo "<!-- la petite url version ".get_option('le_petite_url_version')." -->\n";
+			echo "<link rel='shortlink' href='".$le_petite_url_permalink."' />\n";
 		}
 
 	}
