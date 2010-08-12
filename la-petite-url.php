@@ -4,7 +4,7 @@ Plugin Name: la petite url
 Plugin URI: http://extrafuture.com/la-petite-url/
 Help & Support: http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url
 Description: Personal, customized URL shortening for WordPress.
-Version: 2.0.3
+Version: 2.0.4
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
