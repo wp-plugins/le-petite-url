@@ -25,7 +25,7 @@ Installing la petite url is a breeze.
 
 1. Upload the `la-petite-url` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php the_petite_url_link(); ?>` in your template where you'd like the shortened URL link to show up.
+1. Add the la petite url sidebar widget to a sidebar, or add `<?php the_petite_url_link(); ?>` in your template where you'd like the shortened URL link to show up.
 1. If you'd like to use a separate domain for your shortened links, <a href="http://extrafuture.com/2009/10/15/using-la-petite-url-with-a-custom-shorter-domain-name/">see this article</a>.
 
 == Screenshots ==
@@ -36,7 +36,7 @@ Installing la petite url is a breeze.
 
 == Changelog ==
 
-= 2.0.4 ==
+= 2.0.4 =
 
 * Added la petite url tag for personal stat tracking. No other changes.
 
