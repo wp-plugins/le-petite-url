@@ -4,11 +4,11 @@ Plugin Name: la petite url
 Plugin URI: http://extrafuture.com/la-petite-url/
 Help & Support: http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url
 Description: Personal, customized URL shortening for WordPress.
-Version: 2.0.4
+Version: 2.0.5
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
-Copyright 2009  Phil Nelson  (email : software@extrafuture.com)
+Copyright 2009-2011  Phil Nelson  (email : software@extrafuture.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -180,7 +180,7 @@ function le_petite_url_log_hit($petite_url)
 
 	$referrer = $_SERVER["HTTP_REFERER"];
 	
-	$last_hit_time = $wpdb->get_var("SELECT `timestamp` FROM $wpdb->prefix".$petite_hit_table." order by `timestamp`");
+	$last_hit_time = $wpdb->get_var("SELECT `timestamp` FROM $wpdb->prefix".$petite_hit_table." order by `timestamp` LIMIT 1");
 	
 	if(!$last_hit_time)
 	{
