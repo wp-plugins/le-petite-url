@@ -26,8 +26,4 @@ jQuery(document).ready( function($) {
 			$('#custom-prefix-input').slideUp();
 		}
 	});
-	
-	
-	
-
 });

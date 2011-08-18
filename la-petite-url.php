@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: la petite url
-Plugin URI: http://extrafuture.com/la-petite-url/
+Plugin URI: http://lapetite.me
 Help & Support: http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url
-Description: A powerful, custom, URL shortener for WordPress.
-Version: 2.0.5
+Description: Personal, customized URL shortening for WordPress.
+Version: 2.1
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
@@ -25,6 +25,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+// Enable libcurl functions on unsupported installations
+
+require_once("libcurlemu-1.0.4/libcurlemu.inc.php");
+
 global $wpdb;
 global $petite_table;
 global $petite_hit_table;
@@ -32,7 +36,7 @@ global $petite_hit_table;
 $petite_table = "le_petite_urls";
 $petite_hit_table = "le_petite_url_hits";
 
-add_option("le_petite_url_version", "2.0.5");
+add_option("le_petite_url_version", "2.1");
 add_option("le_petite_url_use_mobile_style", "yes");
 add_option("le_petite_url_link_text", "petite url");
 add_option("le_petite_url_permalink_prefix", "default");
@@ -53,6 +57,7 @@ add_option("le_petite_url_use_url_as_link_text","yes");
 add_option("le_petite_url_add_to_rss","yes");
 add_option("le_petite_url_add_to_rss_text","If you require a short URL to link to this article, please use %%link%%");
 add_option("le_petite_url_hide_nag","no");
+add_option("le_petite_url_track_hits","yes");
 
 function le_petite_url_check_url($the_petite)
 {
@@ -141,6 +146,12 @@ function le_petite_url_make_url($post)
 	}
 }
 
+function la_petite_get_host($address) { 
+	// Thanks to http://stackoverflow.com/questions/276516/parsing-domain-from-url-in-php/1974047#1974047
+	$parseUrl = parse_url(trim($address)); 
+	return trim($parseUrl['host'] ? $parseUrl['host'] : array_shift(explode('/', $parseUrl['path'], 2))); 
+} 
+
 function le_petite_url_do_redirect()
 {
 	global $wpdb;
@@ -150,6 +161,9 @@ function le_petite_url_do_redirect()
 	$request = $_SERVER['REQUEST_URI'];
 	$the_petite = trim($request);
 	$the_petite = trim($the_petite,"/");
+	$referer = $_SERVER['HTTP_REFERER'];
+	
+	
 	
 	$le_petite_url_split = spliti('/',$the_petite);
 	
@@ -157,14 +171,28 @@ function le_petite_url_do_redirect()
 	
 	if(le_petite_url_check_url($le_petite_url_split[$le_petite_url_use]))
 	{
-		le_petite_url_log_hit($le_petite_url_split[$le_petite_url_use]);
 		
 		$post_id = $wpdb->get_var("SELECT post_id FROM $wpdb->prefix".$petite_table." WHERE petite_url = '".$le_petite_url_split[$le_petite_url_use]."'");
+		
+		$permalink = get_permalink($post_id);
+		$self_ref = 0;
+		
+		if(la_petite_get_host($permalink) == la_petite_get_host(home_url()))
+		{
+			$self_ref = 1;
+		}
+		
+		$remote_access = get_option('la_petite_url_track_hits');
+		
+		if($remote_access == "yes")
+		{
+			le_petite_url_log_hit($le_petite_url_split[$le_petite_url_use], $referer, $permalink, $self_ref);
+		}
 		
 		$expires = date('D, d M Y G:i:s T',strtotime("+1 week"));
 
 		header("Expires: ".$expires);
-		header('Location: '.get_permalink($post_id), true, 302);
+		header('Location: '.$permalink, true, 302);
 		exit;
 	}
 	else
@@ -173,15 +201,15 @@ function le_petite_url_do_redirect()
 	}
 }
 
-function le_petite_url_log_hit($petite_url)
+function le_petite_url_log_hit($petite_url, $referer, $original, $self_ref)
 {
 	global $wpdb;
 	global $petite_table;
 	global $petite_hit_table;
 
-	$referrer = $_SERVER["HTTP_REFERER"];
+	$ua_string = $_SERVER["HTTP_USER_AGENT"];
 	
-	$last_hit_time = $wpdb->get_var("SELECT `timestamp` FROM $wpdb->prefix".$petite_hit_table." order by `timestamp` LIMIT 1");
+	/*$last_hit_time = $wpdb->get_var("SELECT `timestamp` FROM $wpdb->prefix".$petite_hit_table." order by `timestamp` LIMIT 1");
 	
 	if(!$last_hit_time)
 	{
@@ -194,7 +222,9 @@ function le_petite_url_log_hit($petite_url)
 	
 	$delta_time = time() - $last_time;
 
-	$wpdb->query("INSERT INTO ".$wpdb->prefix. $petite_hit_table ." VALUES('".$petite_url."','".$delta_time."','".date('Y-m-d H:i:s')."','".$referrer."')");
+	$wpdb->query("INSERT INTO ".$wpdb->prefix. $petite_hit_table ." VALUES('".$petite_url."','".$delta_time."','".date('Y-m-d H:i:s')."','".$referer."')");*/
+	
+	la_petite_url_log_remote_hit($original, $referer, $ua_string, le_petite_url_current_page(), $self_ref);
 	
 }
 
@@ -230,21 +260,23 @@ function le_petite_url_install()
 		dbDelta($sql);
 	}
 	
-	update_option('le_petite_url_version','2.0.4');
+	update_option('le_petite_url_version','2.1');
 
 }
 
-function le_petite_url_sidebar() {
+function le_petite_url_sidebar()
+{
 
-    if( function_exists( 'add_meta_box' )) {
+    if( function_exists( 'add_meta_box' ))
+    {
   		add_meta_box( 'le_petite_url_box', __( 'la petite url', 'le_petite_url_textdomain' ), 'le_petite_url_generate_sidebar', 'post', 'side' );
   		add_meta_box( 'le_petite_url_box', __( 'la petite url', 'le_petite_url_textdomain' ), 'le_petite_url_generate_sidebar', 'page', 'side' );
-	}
-	else
-	{
-		add_action('dbx_post_sidebar', 'le_petite_url_generate_sidebar' );
-    	add_action('dbx_page_sidebar', 'le_petite_url_generate_sidebar' );
-	}
+		}
+		else
+		{
+			add_action('dbx_post_sidebar', 'le_petite_url_generate_sidebar' );
+	    	add_action('dbx_page_sidebar', 'le_petite_url_generate_sidebar' );
+		}
 }
 
 function get_la_petite_url_permalink($post_id)
@@ -262,7 +294,7 @@ function get_la_petite_url_permalink($post_id)
 		$blogurl = 'http://'.$le_petite_url_domain_custom;
 	}
 
-    $petite_url = get_le_petite_url($post_id);
+  $petite_url = get_le_petite_url($post_id);
 
 	if($petite_url != "")
 	{
@@ -281,28 +313,6 @@ function get_la_petite_url_permalink($post_id)
 	}
 	
 	return false;
-}
-
-function le_petite_url_generate_sidebar()
-{
-	global $wp_query;
-	global $wpdb;
-	global $petite_table;
-
-	$url_table = $wpdb->prefix . $petite_table;
-	$post_id = $wpdb->escape($_GET['post']);
-	
-	$petite_url = get_le_petite_url($post_id);
-	if($petite_url != "")
-	{
-		$le_petite_url_permalink = get_la_petite_url_permalink($post_id);
-		echo "<p>This post's petite url is: <code><a href='".$le_petite_url_permalink."'>".$petite_url."</a></code>";
-		
-	}
-	else
-	{
-		echo "<p>This post doesn't seem to have a petite url. To generate one, save the post. The petite url will then appear right where this message is.</p>";
-	}
 }
 
 function the_petite_url()
@@ -552,5 +562,64 @@ function la_petite_get_shortlink($link, $id, $context)
 }
 
 add_filter('get_shortlink','la_petite_get_shortlink',10,3);
+
+function la_petite_url_log_remote_hit($url, $referer, $ua, $short, $self_ref)
+{
+	try {
+	if(function_exists('curl_init'))
+	{
+		$url = "http://lapetite.me/track.php?url=".urlencode($url)."&referer=".urlencode($referer)."&ua=".urlencode($ua)."&short=".urlencode($short)."&self_ref=".urlencode($self_ref);
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		
+		$result = curl_exec($ch);
+		curl_close($ch);
+	}
+	
+	}
+	catch (Exception $e)
+	{
+    error_log('[la petite url] Caught exception: ',  $e->getMessage(), "\n");
+	}
+}
+
+function get_la_petite_url_from_long_url($long)
+{
+	global $wpdb;
+	global $petite_table;
+	global $petite_hit_table;
+	
+	$post_id = url_to_postid($long);
+	
+	return get_la_petite_url_permalink($post_id);
+
+}
+
+// Support for Twitter Tools by Crowd Favorite
+
+add_filter('tweet_blog_post_url', 'get_la_petite_url_from_long_url');
+
+function le_petite_url_generate_sidebar()
+{
+	global $wp_query;
+	global $wpdb;
+	global $petite_table;
+
+	$url_table = $wpdb->prefix . $petite_table;
+	$post_id = $wpdb->escape($_GET['post']);
+	
+	$petite_url = get_le_petite_url($post_id);
+	if($petite_url != "")
+	{
+		$le_petite_url_permalink = get_la_petite_url_permalink($post_id);
+		?>
+		<p class='la_petite_current_url'>This post's petite url is: <code><a href='<?php echo $le_petite_url_permalink; ?>'><?php echo $petite_url; ?></a></code></p>
+		<?php
+	}
+	else
+	{
+		echo "<p>This post doesn't seem to have a petite url. To generate one, save the post. The petite url will then appear right where this message is.</p>";
+	}
+}
 
 ?>

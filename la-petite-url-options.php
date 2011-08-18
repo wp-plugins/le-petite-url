@@ -15,6 +15,7 @@ else
 {
 	$domain_prefix = get_bloginfo('url');
 }
+
 ?>
 <style type="text/css">
 @import url('<?php echo plugins_url('la-petite-url.css',__FILE__); ?>');
@@ -35,7 +36,7 @@ else
             <?php } ?>
             <li><a href="#domain">Domain &amp; Prefix</a></li>
             <li><a href="#advanced">URL Generation</a></li>
-            <li><a href="#auto">Auto-Detection</a></li>
+            <li><a href="#auto">Advanced</a></li>
         </ul>
 		<div class="scroll">
 			<div class="scrollContainer">
@@ -44,7 +45,7 @@ else
 					<div class="la-petite-section-header">
 						<h3>Buy la petite url</h3>
 					</div>
-					<p><strong>Love la petite url?</strong> Why not <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7R52H8KRFL92G">buy a license</a>? It's only <strong>$5</strong>. Licensing la petite url will endow you with benefits including but not limited to:</p>
+					<p><strong>Love la petite url?</strong> Why not <a href="http://lapetite.me/buy">buy a license</a>? It's only <strong>$5</strong>. Licensing la petite url will endow you with benefits including but not limited to:</p>
 					<ul>
 						<li>Support calls and emails totally getting answered</li>
 						<li>Allowing the developer to buy essential items, like food</li>
@@ -54,7 +55,7 @@ else
 						<li>If not, maybe you'll just feel good about it?</li>
 						<li>The confidence to crush your enemies</li>
 					</ul>
-					<p id="buy-button"><a href="?page=le-petite-url%2Fla-petite-url-options.php&amp;hide_nag=yes" class="cssbutton gray">Nah</a> <a id="buy-it" class="cssbutton blue" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7R52H8KRFL92G">I'd like to buy la petite url</a></p>
+					<p id="buy-button"><a href="?page=le-petite-url%2Fla-petite-url-options.php&amp;hide_nag=yes" class="cssbutton gray">Nah</a> <a id="buy-it" class="cssbutton blue" href="http://lapetite.me/buy">I'd like to buy la petite url</a></p>
 				</div>
 				<?php } ?>
 
@@ -62,7 +63,7 @@ else
 					<div class="la-petite-section-header">
 						<h3>Domain &amp; URL Prefix</h3>
 						<div class="upgrade-now">
-							<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7R52H8KRFL92G">Buy la petite url</a>  | <a href="http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url">Help & Support</a></p>
+							<p><a href="http://lapetite.me/buy">Buy la petite url</a>  | <a href="http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url">Help & Support</a></p>
 						</div>
 					</div>
 					
@@ -98,7 +99,7 @@ else
 					<div class="la-petite-section-header">
 						<h3>URL Generation</h3>
 						<div class="upgrade-now">
-							<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7R52H8KRFL92G">Buy la petite url</a>  | <a href="http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url">Help & Support</a></p>
+							<p><a href="http://lapetite.me/buy">Buy la petite url</a>  | <a href="http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url">Help & Support</a></p>
 						</div>
 					</div>
 					
@@ -130,7 +131,7 @@ else
 					<div class="la-petite-section-header">
 						<h3>Auto-Detection</h3>
 						<div class="upgrade-now">
-							<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7R52H8KRFL92G">Buy la petite url</a>  | <a href="http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url">Help & Support</a></p>
+							<p><a href="http://lapetite.me/buy">Buy la petite url</a>  | <a href="http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url">Help & Support</a></p>
 						</div>
 					</div>
 
@@ -138,9 +139,15 @@ else
 					<input name="le_petite_use_short_url" type="checkbox" id="le_petite_use_short_url" value="yes" <?php if(get_option('le_petite_use_short_url') == "yes") { echo 'checked="checked"'; } ?> />
 					
 					Use <a href="http://sites.google.com/a/snaplog.com/wiki/short_url" title="Learn about short_url: the short_url wiki">short_url</a></label>
+					
 					<label for="le_petite_use_shortlink" class="checkbox">
 					<input name="le_petite_use_shortlink" type="checkbox" id="le_petite_use_shortlink" value="yes" <?php if(get_option('le_petite_use_shortlink') == "yes") { echo 'checked="checked"'; } ?> />
 					Use <a href="http://microformats.org/wiki/rel-shortlink" title="Learn about rel=shortlink">shortlink</a></label>
+					
+					<label for="le_petite_url_track_hits" class="checkbox">
+					<input name="le_petite_url_track_hits" type="checkbox" id="le_petite_url_track_hits" value="yes" <?php if(get_option('le_petite_url_track_hits') == "yes") { echo 'checked="checked"'; } ?> />
+					
+					Use <a href="http://lapetite.me">lapetite.me</a> hit tracking</label>
 					
 					<button type="submit" name="submit" class="la-petite-save-button cssbutton blue">Save Changes</button>
 				</div>
@@ -148,6 +155,6 @@ else
 		</div>
 	</div>
 	<input type="hidden" name="action" value="update" />
-	<input type="hidden" name="page_options" value="le_petite_url_permalink_prefix,le_petite_url_permalink_custom,le_petite_url_use_lowercase,le_petite_url_use_uppercase,le_petite_url_use_numbers,le_petite_url_length,le_petite_url_permalink_domain,le_petite_url_domain_custom,le_petite_use_shortlink" />
+	<input type="hidden" name="page_options" value="le_petite_url_permalink_prefix,le_petite_url_permalink_custom,le_petite_url_use_lowercase,le_petite_url_use_uppercase,le_petite_url_use_numbers,le_petite_url_length,le_petite_url_permalink_domain,le_petite_url_domain_custom,le_petite_use_shortlink,le_petite_url_track_hits" />
 	</form>
 </div>

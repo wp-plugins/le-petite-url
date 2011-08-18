@@ -298,3 +298,8 @@ h3 {
 	float: left;
 	background: transparent;
 }
+
+#la_petite_custom_form label {
+	font-weight: bold;
+	display: none;
+}
