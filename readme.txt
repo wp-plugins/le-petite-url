@@ -2,9 +2,9 @@
 Contributors: philnelson
 Version: 2.1
 Plugin URI: http://lapetite.me
-Tags: url shortener, url shortening, shorturl, short_url, shortlink, short permalink, short url, twitter, Facebook
+Tags: url shortener, url shortening, shorturl, short_url, shortlink, short permalink, short url
 Requires at least: 2.5
-Tested up to: 3.0.5
+Tested up to: 3.2.1
 Stable tag: trunk
 Author: Phil Nelson
 Author URI: http://extrafuture.com
