@@ -4,7 +4,7 @@ Plugin Name: la petite url
 Plugin URI: http://lapetite.me
 Help & Support: http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url
 Description: Personal, customized URL shortening for WordPress.
-Version: 2.1
+Version: 2.1.1
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
@@ -36,7 +36,7 @@ global $petite_hit_table;
 $petite_table = "le_petite_urls";
 $petite_hit_table = "le_petite_url_hits";
 
-add_option("le_petite_url_version", "2.1");
+add_option("le_petite_url_version", "2.1.1");
 add_option("le_petite_url_use_mobile_style", "yes");
 add_option("le_petite_url_link_text", "petite url");
 add_option("le_petite_url_permalink_prefix", "default");
@@ -184,10 +184,9 @@ function le_petite_url_do_redirect()
 		
 		$remote_access = get_option('la_petite_url_track_hits');
 		
-		if($remote_access == "yes")
-		{
-			le_petite_url_log_hit($le_petite_url_split[$le_petite_url_use], $referer, $permalink, $self_ref);
-		}
+
+		le_petite_url_log_hit($le_petite_url_split[$le_petite_url_use], $referer, $permalink, $self_ref);
+		
 		
 		$expires = date('D, d M Y G:i:s T',strtotime("+1 week"));
 
@@ -565,16 +564,18 @@ add_filter('get_shortlink','la_petite_get_shortlink',10,3);
 
 function la_petite_url_log_remote_hit($url, $referer, $ua, $short, $self_ref)
 {
-	try {
-	if(function_exists('curl_init'))
+	try
 	{
-		$url = "http://lapetite.me/track.php?url=".urlencode($url)."&referer=".urlencode($referer)."&ua=".urlencode($ua)."&short=".urlencode($short)."&self_ref=".urlencode($self_ref);
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		
-		$result = curl_exec($ch);
-		curl_close($ch);
-	}
+		if(function_exists('curl_init'))
+		{
+			$url = "http://lapetite.me/track.php?url=".urlencode($url)."&referer=".urlencode($referer)."&ua=".urlencode($ua)."&short=".urlencode($short)."&self_ref=".urlencode($self_ref);
+			error_log($url);
+			$ch = curl_init($url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			
+			$result = curl_exec($ch);
+			curl_close($ch);
+		}
 	
 	}
 	catch (Exception $e)

@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: philnelson
-Version: 2.1
+Version: 2.1.1
 Plugin URI: http://lapetite.me
 Tags: url shortener, url shortening, shorturl, short_url, shortlink, short permalink, short url
 Requires at least: 2.5
@@ -13,7 +13,7 @@ la petite url is a personal, self-hosted, URL shortener for WordPress.
 
 == Description ==
 
-* la petite url version 2.1 includes hit tracking support. If you would like to turn this feature off, uncheck the "use lapetite.me" box in your la petite url settings. *
+* la petite url version 2.1 includes hit tracking support. If you would like to turn this feature off, uncheck the "use lapetite.me hit tracking" box in your la petite url settings. *
 
 la petite url is a personal URL shortener. Using your own Wordpress (2.5+) installation, la petite url allows the user to create shortened, unique, permalinks to their content using a combination of lowercase, uppercase, and numeric characters, which originate from their own domain name. By default la petite url generates a 5-character combination of lowercase letters only, for ease of use in entering on a mobile device or handset. With version 1.5 la petite url allows the user to add a custom, shorter domain for these shortened links.
 
