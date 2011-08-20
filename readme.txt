@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: philnelson
-Version: 2.1.1
+Version: 2.1.2
 Plugin URI: http://lapetite.me
 Tags: url shortener, url shortening, shorturl, short_url, shortlink, short permalink, short url
 Requires at least: 2.5
@@ -37,6 +37,10 @@ Installing la petite url is a breeze.
 3. la petite url's auto-detection settings
 
 == Changelog ==
+
+= 2.1.2 =
+
+* Page title fix for click tracking
 
 = 2.1 =
 
