@@ -223,7 +223,7 @@ function le_petite_url_log_hit($petite_url, $referer, $original, $self_ref, $pag
 	
 	$remote_access = get_option('la_petite_url_track_hits');
 	
-	if($remote_access != "no")
+	if($remote_access == "yes")
 	{
 		la_petite_url_log_remote_hit($original, $referer, $ua_string, le_petite_url_current_page(), $self_ref, $page_title);
 	}
@@ -571,7 +571,7 @@ function la_petite_url_log_remote_hit($url, $referer, $ua, $short, $self_ref, $p
 		if(function_exists('curl_init'))
 		{
 			$url = "http://lapetite.me/track.php?url=".urlencode($url)."&referer=".urlencode($referer)."&ua=".urlencode($ua)."&title=".urlencode($page_title)."&short=".urlencode($short)."&self_ref=".urlencode($self_ref);
-			error_log($url);
+			//error_log($url);
 			$ch = curl_init($url);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			
