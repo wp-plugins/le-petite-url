@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: philnelson
-Version: 2.1.2
+Version: 2.1.
 Plugin URI: http://lapetite.me
 Tags: url shortener, url shortening, shorturl, short_url, shortlink, short permalink, short url
 Requires at least: 2.5
