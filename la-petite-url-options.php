@@ -32,7 +32,7 @@ else
     <div id="slider">    
         <ul class="navigation">
         	<?php if(get_option('le_petite_url_hide_nag') == "no") { ?>
-            <li><a href="#laPetiteDonate">Buy</a></li>
+            <li><a href="#laPetiteDonate">Donate</a></li>
             <?php } ?>
             <li><a href="#domain">Domain &amp; Prefix</a></li>
             <li><a href="#advanced">URL Generation</a></li>
@@ -43,7 +43,7 @@ else
 				<?php if(get_option('le_petite_url_hide_nag') == "no") { ?>
 				<div class="la-petite-wrapper panel" id="laPetiteDonate">
 					<div class="la-petite-section-header">
-						<h3>Buy la petite url</h3>
+						<h3>Donate to la petite url</h3>
 					</div>
 					<p><strong>Love la petite url?</strong> Why not <a href="http://lapetite.me/buy">buy a license</a>? It's only <strong>$5</strong>. Licensing la petite url will endow you with benefits including but not limited to:</p>
 					<ul>
@@ -63,13 +63,12 @@ else
 					<div class="la-petite-section-header">
 						<h3>Domain &amp; URL Prefix</h3>
 						<div class="upgrade-now">
-							<p><a href="http://lapetite.me/buy">Buy la petite url</a>  | <a href="http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url">Help & Support</a></p>
+							<p><a href="http://lapetite.me/buy">Support la petite url</a>  | <a href="http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url">Help</a></p>
 						</div>
 					</div>
 					
 					<?php if($le_petite_url_hide_godaddy != "yes") { ?>
-					<p id="godaddy"><strong>Want a shorter domain?</strong> Register one with <a href="http://www.dpbolvw.net/click-3445809-10378406" target="_blank">www.GoDaddy.com </a>
-					<img src="http://www.awltovhc.com/image-3445809-10378406" width="1" height="1" border="0"/>.</p>
+					<p id="godaddy"><strong>Want a shorter domain? <a href="https://hover.com/P2xc6SzR">Register one with Hover</a></strong>.</p>
 					<?php } ?>
 					
 					<div class="la-petite-controls-group">

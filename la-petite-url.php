@@ -4,11 +4,11 @@ Plugin Name: la petite url
 Plugin URI: http://lapetite.me
 Help & Support: http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url
 Description: Personal, customized URL shortening for WordPress.
-Version: 2.1.3
+Version: 2.1.4
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
-Copyright 2009-2011  Phil Nelson  (email : software@extrafuture.com)
+Copyright 2009-2012  Phil Nelson  (email : software@extrafuture.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ global $petite_hit_table;
 $petite_table = "le_petite_urls";
 $petite_hit_table = "le_petite_url_hits";
 
-add_option("le_petite_url_version", "2.1.3");
+add_option("le_petite_url_version", "2.1.4");
 add_option("le_petite_url_use_mobile_style", "yes");
 add_option("le_petite_url_link_text", "petite url");
 add_option("le_petite_url_permalink_prefix", "default");
@@ -225,7 +225,7 @@ function le_petite_url_log_hit($petite_url, $referer, $original, $self_ref, $pag
 	
 	if($remote_access == "yes")
 	{
-		la_petite_url_log_remote_hit($original, $referer, $ua_string, le_petite_url_current_page(), $self_ref, $page_title);
+		la_petite_url_log_remote_hit($original, $referer, $ua_string, le_petite_url_current_page(), $self_ref, $page_title,get_option('le_petite_url_permalink_domain'));
 	}
 }
 
@@ -564,16 +564,17 @@ function la_petite_get_shortlink($link, $id, $context)
 
 add_filter('get_shortlink','la_petite_get_shortlink',10,3);
 
-function la_petite_url_log_remote_hit($url, $referer, $ua, $short, $self_ref, $page_title)
+function la_petite_url_log_remote_hit($url, $referer, $ua, $short, $self_ref, $page_title, $destination_shorturl)
 {
 	try
 	{
 		if(function_exists('curl_init'))
 		{
-			$url = "http://lapetite.me/track.php?url=".urlencode($url)."&referer=".urlencode($referer)."&ua=".urlencode($ua)."&title=".urlencode($page_title)."&short=".urlencode($short)."&self_ref=".urlencode($self_ref);
+			$url = "http://lapetite.me/track.php?url=".urlencode($url)."&referer=".urlencode($referer)."&ua=".urlencode($ua)."&title=".urlencode($page_title)."&short=".urlencode($short)."&self_ref=".urlencode($self_ref)."&sdomain=".urlencode($destination_shorturl);
 			//error_log($url);
 			$ch = curl_init($url);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($sh, CURLOPT_CONNECTTIMEOUT,1000);
 			
 			$result = curl_exec($ch);
 			curl_close($ch);
@@ -617,6 +618,7 @@ function le_petite_url_generate_sidebar()
 		$le_petite_url_permalink = get_la_petite_url_permalink($post_id);
 		?>
 		<p class='la_petite_current_url'>This post's petite url is: <code><a href='<?php echo $le_petite_url_permalink; ?>'><?php echo $petite_url; ?></a></code></p>
+		<a href="http://lapetite.me/buy">Donate to keep la petite url alive.</a>
 		<?php
 	}
 	else
