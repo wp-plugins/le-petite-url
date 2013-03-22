@@ -1,10 +1,10 @@
 === Plugin Name ===
 Contributors: philnelson
-Version: 2.1.4
+Version: 2.1.5
 Plugin URI: http://lapetite.me
-Tags: url shortener, url shortening, shorturl, short_url, shortlink, short permalink, short url
+Tags: url shortener, url shortening, shorturl, short_url, shortlink, short permalink, short url, custom short url, custom url
 Requires at least: 2.5
-Tested up to: 3.3.1
+Tested up to: 3.5.1
 Stable tag: trunk
 Author: Phil Nelson
 Author URI: http://extrafuture.com
@@ -37,6 +37,10 @@ Installing la petite url is a breeze.
 3. la petite url's auto-detection settings
 
 == Changelog ==
+
+= 2.1.5 =
+
+* Removed hit tracking for now.
 
 = 2.1.4 =
 

@@ -4,7 +4,7 @@ Plugin Name: la petite url
 Plugin URI: http://lapetite.me
 Help & Support: http://getsatisfaction.com/extrafuture/products/extrafuture_la_petite_url
 Description: Personal, customized URL shortening for WordPress.
-Version: 2.1.4
+Version: 2.1.5
 Author: Phil Nelson
 Author URI: http://extrafuture.com
 
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 // Enable libcurl functions on unsupported installations
 
-require_once("libcurlemu-1.0.4/libcurlemu.inc.php");
+//require_once("libcurlemu-1.0.4/libcurlemu.inc.php");
 
 global $wpdb;
 global $petite_table;
@@ -36,7 +36,7 @@ global $petite_hit_table;
 $petite_table = "le_petite_urls";
 $petite_hit_table = "le_petite_url_hits";
 
-add_option("le_petite_url_version", "2.1.4");
+add_option("le_petite_url_version", "2.1.5");
 add_option("le_petite_url_use_mobile_style", "yes");
 add_option("le_petite_url_link_text", "petite url");
 add_option("le_petite_url_permalink_prefix", "default");
@@ -225,7 +225,8 @@ function le_petite_url_log_hit($petite_url, $referer, $original, $self_ref, $pag
 	
 	if($remote_access == "yes")
 	{
-		la_petite_url_log_remote_hit($original, $referer, $ua_string, le_petite_url_current_page(), $self_ref, $page_title,get_option('le_petite_url_permalink_domain'));
+	 // Turned off for now.
+		//la_petite_url_log_remote_hit($original, $referer, $ua_string, le_petite_url_current_page(), $self_ref, $page_title,get_option('le_petite_url_permalink_domain'));
 	}
 }
 
@@ -564,6 +565,7 @@ function la_petite_get_shortlink($link, $id, $context)
 
 add_filter('get_shortlink','la_petite_get_shortlink',10,3);
 
+/*
 function la_petite_url_log_remote_hit($url, $referer, $ua, $short, $self_ref, $page_title, $destination_shorturl)
 {
 	try
@@ -586,6 +588,7 @@ function la_petite_url_log_remote_hit($url, $referer, $ua, $short, $self_ref, $p
     error_log('[la petite url] Caught exception: ',  $e->getMessage(), "\n");
 	}
 }
+*/
 
 function get_la_petite_url_from_long_url($long)
 {
