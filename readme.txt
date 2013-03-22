@@ -13,8 +13,6 @@ la petite url is a personal, self-hosted, URL shortener for WordPress.
 
 == Description ==
 
-* la petite url version 2.1 includes hit tracking support. If you would like to turn this feature off, uncheck the "use lapetite.me hit tracking" box in your la petite url settings. *
-
 la petite url is a personal, customizable, URL shortener. Using your own Wordpress (2.5+) installation, la petite url allows the user to create shortened, unique, permalinks to their content using a combination of lowercase, uppercase, and numeric characters, which originate from their own domain name. By default la petite url generates a 5-character combination of lowercase letters only, for ease of use in entering on a mobile device or handset. With version 1.5 la petite url allows the user to add a custom, shorter domain for these shortened links.
 
 la petite url supports <a href="http://sites.google.com/a/snaplog.com/wiki/short_url" title="read more about shorturl">shorturl auto discovery</a> and <a href="http://microformats.org/wiki/rel-shortlink" title="Read more about shortlink">rel="shortlink"</a>.
