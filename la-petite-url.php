@@ -523,6 +523,7 @@ register_activation_hook(__FILE__, "le_petite_url_install");
 
 add_action('init','le_petite_url_do_redirect');
 add_action('save_post','le_petite_url_make_url');
+add_action('pre_post_update','le_petite_url_make_url');
 add_action('admin_menu', 'le_petite_url_sidebar');
 add_action('wp_head', 'le_petite_url_short_url_header');
 
